@@ -34,14 +34,15 @@ app.post("/add", async (req, res) => {
     console.log(error);
   }
 });
-app.put("/edit/:_id", (req, res) => {
+app.put("/edit/:id", async (req, res) => {
   try {
     const id = req.params._id;
-    const alteredUser = [...User.job];
-    const index = alteredUser.findIndex((i) => i._id === id);
-    alteredUser.splice(index, 0, req.body);
+    const allDatas = await User.find({});
+    const temp = [...allDatas];
+    const index = temp.findIndex((i) => i._id === id);
+    temp.splice(index, 1, req.body);
     console.log("EDITED", req.body);
-    res.json(alteredUser);
+    res.json(req.body);
   } catch (error) {
     console.log(error);
   }
