@@ -47,12 +47,17 @@ app.put("/edit/:id", async (req, res) => {
     console.log(error);
   }
 });
-app.delete("/remove/:id", async (req, res) => {
+app.delete("/remove/:id",async(req,res)=>{
   try {
-    const id = req.params._id;
-    await User.deleteOne({ _id: id });
-    res.send("deleted");
+  const id = req.params._id;
+  const allDatas = await User.find({});
+  const temp = [...allDatas];
+  const index = temp.findIndex((i) => i._id === id);
+  temp.splice(index, 1);
+  console.log("DELETED", req.body);
+  res.json(req.body);
+    
   } catch (error) {
     console.log(error);
   }
-});
+})
