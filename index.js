@@ -50,12 +50,8 @@ app.put("/edit/:id", async (req, res) => {
 app.delete("/remove/:id", async (req, res) => {
   try {
     const id = req.params._id;
-    const allDatas = await User.find({});
-    const temp = [...allDatas];
-    const index = temp.findIndex((i) => i._id === id);
-    temp.splice(index, 1);
-    res.send(req.body);
-    console.log("DELETED", req.body);
+    await User.deleteOne(id);
+    res.send("deleted");
   } catch (error) {
     console.log(error);
   }
