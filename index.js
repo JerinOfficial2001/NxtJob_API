@@ -50,7 +50,7 @@ app.put("/edit/:id", async (req, res) => {
 app.delete("/remove/:id", async (req, res) => {
   try {
     const id = req.params._id;
-    await User.deleteOne(id);
+    await User.deleteOne({ _id: id });
     res.send("deleted");
   } catch (error) {
     console.log(error);
